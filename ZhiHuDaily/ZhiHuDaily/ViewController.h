@@ -1,14 +1,14 @@
 //
 //  ViewController.h
-//  ZhuHuDaily
+//  ZhiHuDaily
 //
 //  Created by Legolas.Invoker on 2017/4/10.
 //  Copyright © 2017年 Chang.Jing. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <UIKit/UIKit.h>
 
-@interface ViewController : NSViewController
+@interface ViewController : UIViewController
 
 
 @end
