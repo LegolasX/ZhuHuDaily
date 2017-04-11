@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LRWebModel.h"
 
-@interface ViewController : UIViewController
+@interface LRWebViewController : UIViewController <UIWebViewDelegate>
+@property (nonatomic,copy) NSString *storyID;
 
 
 @end

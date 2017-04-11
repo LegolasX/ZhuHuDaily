@@ -9,25 +9,54 @@
 /* Begin PBXBuildFile section */
 		A0F626BB1E9BB80600E3F5D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626BA1E9BB80600E3F5D9 /* main.m */; };
 		A0F626BE1E9BB80600E3F5D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */; };
-		A0F626C11E9BB80600E3F5D9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626C01E9BB80600E3F5D9 /* ViewController.m */; };
+		A0F626C11E9BB80600E3F5D9 /* LRWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626C01E9BB80600E3F5D9 /* LRWebViewController.m */; };
 		A0F626C41E9BB80600E3F5D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0F626C21E9BB80600E3F5D9 /* Main.storyboard */; };
 		A0F626C71E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0F626C51E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodeld */; };
 		A0F626C91E9BB80600E3F5D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0F626C81E9BB80600E3F5D9 /* Assets.xcassets */; };
 		A0F626CC1E9BB80600E3F5D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0F626CA1E9BB80600E3F5D9 /* LaunchScreen.storyboard */; };
+		A0F626D51E9BB92400E3F5D9 /* LRMainTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626D41E9BB92400E3F5D9 /* LRMainTableVC.m */; };
+		A0F626E71E9C6B2900E3F5D9 /* LRZhiHuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626E61E9C6B2900E3F5D9 /* LRZhiHuModel.m */; };
+		A0F626EA1E9CC44A00E3F5D9 /* LRTableVContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626E91E9CC44A00E3F5D9 /* LRTableVContentCell.m */; };
+		A0F626ED1E9CF2A100E3F5D9 /* LRWebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */; };
+		E1BE55E0F1EB7250B9DAA34D /* Pods_ZhiHuDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DD3962A7D730EF68C6C7A8 /* Pods_ZhiHuDaily.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A0F626DC1E9BD85A00E3F5D9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		16DD3962A7D730EF68C6C7A8 /* Pods_ZhiHuDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhiHuDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		764737A63010F37E20F292BA /* Pods-ZhiHuDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhiHuDaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily.release.xcconfig"; sourceTree = "<group>"; };
+		9FBAB90BE40006E2A01027F8 /* Pods-ZhiHuDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhiHuDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		A0F626B61E9BB80600E3F5D9 /* ZhiHuDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhiHuDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0F626BA1E9BB80600E3F5D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0F626BC1E9BB80600E3F5D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A0F626BF1E9BB80600E3F5D9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A0F626C01E9BB80600E3F5D9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A0F626BF1E9BB80600E3F5D9 /* LRWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRWebViewController.h; sourceTree = "<group>"; };
+		A0F626C01E9BB80600E3F5D9 /* LRWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRWebViewController.m; sourceTree = "<group>"; };
 		A0F626C31E9BB80600E3F5D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A0F626C61E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ZhiHuDaily.xcdatamodel; sourceTree = "<group>"; };
 		A0F626C81E9BB80600E3F5D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0F626CB1E9BB80600E3F5D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0F626CD1E9BB80600E3F5D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0F626D31E9BB92400E3F5D9 /* LRMainTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRMainTableVC.h; sourceTree = "<group>"; };
+		A0F626D41E9BB92400E3F5D9 /* LRMainTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRMainTableVC.m; sourceTree = "<group>"; };
+		A0F626E51E9C6B2900E3F5D9 /* LRZhiHuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRZhiHuModel.h; sourceTree = "<group>"; };
+		A0F626E61E9C6B2900E3F5D9 /* LRZhiHuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRZhiHuModel.m; sourceTree = "<group>"; };
+		A0F626E81E9CC44A00E3F5D9 /* LRTableVContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTableVContentCell.h; sourceTree = "<group>"; };
+		A0F626E91E9CC44A00E3F5D9 /* LRTableVContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTableVContentCell.m; sourceTree = "<group>"; };
+		A0F626EB1E9CF2A100E3F5D9 /* LRWebModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRWebModel.h; sourceTree = "<group>"; };
+		A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRWebModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +64,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BE55E0F1EB7250B9DAA34D /* Pods_ZhiHuDaily.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13C0A3B853BDFEDEB9840ABB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				16DD3962A7D730EF68C6C7A8 /* Pods_ZhiHuDaily.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9FAD741695BC04B948BCB0E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9FBAB90BE40006E2A01027F8 /* Pods-ZhiHuDaily.debug.xcconfig */,
+				764737A63010F37E20F292BA /* Pods-ZhiHuDaily.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A0F626AD1E9BB80600E3F5D9 = {
 			isa = PBXGroup;
 			children = (
 				A0F626B81E9BB80600E3F5D9 /* ZhiHuDaily */,
 				A0F626B71E9BB80600E3F5D9 /* Products */,
+				9FAD741695BC04B948BCB0E8 /* Pods */,
+				13C0A3B853BDFEDEB9840ABB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,14 +109,14 @@
 		A0F626B81E9BB80600E3F5D9 /* ZhiHuDaily */ = {
 			isa = PBXGroup;
 			children = (
-				A0F626BC1E9BB80600E3F5D9 /* AppDelegate.h */,
-				A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */,
-				A0F626BF1E9BB80600E3F5D9 /* ViewController.h */,
-				A0F626C01E9BB80600E3F5D9 /* ViewController.m */,
+				A0F626EE1E9D0E7C00E3F5D9 /* Models */,
+				A0F626BF1E9BB80600E3F5D9 /* LRWebViewController.h */,
+				A0F626C01E9BB80600E3F5D9 /* LRWebViewController.m */,
 				A0F626C21E9BB80600E3F5D9 /* Main.storyboard */,
-				A0F626C81E9BB80600E3F5D9 /* Assets.xcassets */,
-				A0F626CA1E9BB80600E3F5D9 /* LaunchScreen.storyboard */,
-				A0F626CD1E9BB80600E3F5D9 /* Info.plist */,
+				A0F626D31E9BB92400E3F5D9 /* LRMainTableVC.h */,
+				A0F626D41E9BB92400E3F5D9 /* LRMainTableVC.m */,
+				A0F626E81E9CC44A00E3F5D9 /* LRTableVContentCell.h */,
+				A0F626E91E9CC44A00E3F5D9 /* LRTableVContentCell.m */,
 				A0F626C51E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodeld */,
 				A0F626B91E9BB80600E3F5D9 /* Supporting Files */,
 			);
@@ -77,9 +126,25 @@
 		A0F626B91E9BB80600E3F5D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A0F626BC1E9BB80600E3F5D9 /* AppDelegate.h */,
+				A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */,
+				A0F626C81E9BB80600E3F5D9 /* Assets.xcassets */,
+				A0F626CA1E9BB80600E3F5D9 /* LaunchScreen.storyboard */,
+				A0F626CD1E9BB80600E3F5D9 /* Info.plist */,
 				A0F626BA1E9BB80600E3F5D9 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A0F626EE1E9D0E7C00E3F5D9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0F626E51E9C6B2900E3F5D9 /* LRZhiHuModel.h */,
+				A0F626E61E9C6B2900E3F5D9 /* LRZhiHuModel.m */,
+				A0F626EB1E9CF2A100E3F5D9 /* LRWebModel.h */,
+				A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,9 +154,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0F626D01E9BB80600E3F5D9 /* Build configuration list for PBXNativeTarget "ZhiHuDaily" */;
 			buildPhases = (
+				07DB08278A47EC067CCEE5DE /* [CP] Check Pods Manifest.lock */,
 				A0F626B21E9BB80600E3F5D9 /* Sources */,
 				A0F626B31E9BB80600E3F5D9 /* Frameworks */,
 				A0F626B41E9BB80600E3F5D9 /* Resources */,
+				956FFF374923AC46793D9CD4 /* [CP] Embed Pods Frameworks */,
+				AF489C19E5DB279E6DC3C3E2 /* [CP] Copy Pods Resources */,
+				A0F626DC1E9BD85A00E3F5D9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,15 +218,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07DB08278A47EC067CCEE5DE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		956FFF374923AC46793D9CD4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF489C19E5DB279E6DC3C3E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A0F626B21E9BB80600E3F5D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0F626C11E9BB80600E3F5D9 /* ViewController.m in Sources */,
+				A0F626C11E9BB80600E3F5D9 /* LRWebViewController.m in Sources */,
 				A0F626BE1E9BB80600E3F5D9 /* AppDelegate.m in Sources */,
+				A0F626EA1E9CC44A00E3F5D9 /* LRTableVContentCell.m in Sources */,
 				A0F626C71E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodeld in Sources */,
+				A0F626ED1E9CF2A100E3F5D9 /* LRWebModel.m in Sources */,
 				A0F626BB1E9BB80600E3F5D9 /* main.m in Sources */,
+				A0F626E71E9C6B2900E3F5D9 /* LRZhiHuModel.m in Sources */,
+				A0F626D51E9BB92400E3F5D9 /* LRMainTableVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +396,7 @@
 		};
 		A0F626D11E9BB80600E3F5D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FBAB90BE40006E2A01027F8 /* Pods-ZhiHuDaily.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = RHBBUXEY37;
@@ -287,6 +409,7 @@
 		};
 		A0F626D21E9BB80600E3F5D9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 764737A63010F37E20F292BA /* Pods-ZhiHuDaily.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = RHBBUXEY37;
@@ -316,6 +439,7 @@
 				A0F626D21E9BB80600E3F5D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
