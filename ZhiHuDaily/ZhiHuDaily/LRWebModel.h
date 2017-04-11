@@ -12,8 +12,8 @@
 @property (nonatomic,copy) NSString *body;
 @property (nonatomic,copy) NSString *imageSource;//not equal
 @property (nonatomic,copy) NSString *title;
-@property (nonatomic,copy) NSString *imageURL;//not equal
-@property (nonatomic,copy) NSString *shareURL;//not equal
+@property (nonatomic,copy) NSURL *imageURL;//not equal
+@property (nonatomic,copy) NSURL *shareURL;//not equal
 @property (nonatomic) NSString *js;//may not be string
 @property (nonatomic) NSInteger *type;
 @property (nonatomic,copy) NSString *storyID;//not equal

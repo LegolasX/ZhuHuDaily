@@ -37,6 +37,9 @@
         NSLog(@"%@",responseObject);
         NSLog(@"title = %@",model.title);
         NSMutableString *bodyHTML = [[NSMutableString alloc] initWithString:@"<link rel = \"stylesheet\" type=\"text/css\" href=\""];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 223)];
+        [imageView sd_setImageWithURL:model.imageURL];
+        [webView.scrollView addSubview:imageView];
         [bodyHTML appendString:model.css[0]];
         [bodyHTML appendString:@"\"> </link>\n"];
         [bodyHTML appendString:model.body];
