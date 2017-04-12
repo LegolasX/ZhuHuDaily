@@ -18,6 +18,7 @@
 		A0F626E71E9C6B2900E3F5D9 /* LRZhiHuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626E61E9C6B2900E3F5D9 /* LRZhiHuModel.m */; };
 		A0F626EA1E9CC44A00E3F5D9 /* LRTableVContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626E91E9CC44A00E3F5D9 /* LRTableVContentCell.m */; };
 		A0F626ED1E9CF2A100E3F5D9 /* LRWebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */; };
+		A0F626F21E9E222C00E3F5D9 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626F11E9E222C00E3F5D9 /* GradientView.m */; };
 		E1BE55E0F1EB7250B9DAA34D /* Pods_ZhiHuDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16DD3962A7D730EF68C6C7A8 /* Pods_ZhiHuDaily.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,8 @@
 		A0F626E91E9CC44A00E3F5D9 /* LRTableVContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTableVContentCell.m; sourceTree = "<group>"; };
 		A0F626EB1E9CF2A100E3F5D9 /* LRWebModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRWebModel.h; sourceTree = "<group>"; };
 		A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRWebModel.m; sourceTree = "<group>"; };
+		A0F626F01E9E222C00E3F5D9 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
+		A0F626F11E9E222C00E3F5D9 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,7 @@
 		A0F626B81E9BB80600E3F5D9 /* ZhiHuDaily */ = {
 			isa = PBXGroup;
 			children = (
+				A0F626EF1E9E221F00E3F5D9 /* Framework */,
 				A0F626EE1E9D0E7C00E3F5D9 /* Models */,
 				A0F626BF1E9BB80600E3F5D9 /* LRWebViewController.h */,
 				A0F626C01E9BB80600E3F5D9 /* LRWebViewController.m */,
@@ -145,6 +149,15 @@
 				A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		A0F626EF1E9E221F00E3F5D9 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				A0F626F01E9E222C00E3F5D9 /* GradientView.h */,
+				A0F626F11E9E222C00E3F5D9 /* GradientView.m */,
+			);
+			name = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F626C11E9BB80600E3F5D9 /* LRWebViewController.m in Sources */,
+				A0F626F21E9E222C00E3F5D9 /* GradientView.m in Sources */,
 				A0F626BE1E9BB80600E3F5D9 /* AppDelegate.m in Sources */,
 				A0F626EA1E9CC44A00E3F5D9 /* LRTableVContentCell.m in Sources */,
 				A0F626C71E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodeld in Sources */,

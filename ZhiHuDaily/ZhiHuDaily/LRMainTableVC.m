@@ -128,7 +128,7 @@
         LRWebViewController *dvc = [segue destinationViewController];
         LRTableVContentCell *cell = sender;
         NSString *ID = [NSString stringWithFormat:@"%d", cell.tag];
-        NSLog(@"i give you this:%@",ID);
+       
         dvc.storyID = ID;
         
     }

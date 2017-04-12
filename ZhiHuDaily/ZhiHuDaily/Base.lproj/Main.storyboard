@@ -78,22 +78,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m08-YB-Ogz">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wbf-BQ-YLf">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Item" id="FJF-O4-YhQ">
+                                        <connections>
+                                            <action selector="changeF1:" destination="BYZ-38-t0r" id="xmc-D7-SMQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="JSG-Kj-YLh">
+                                        <connections>
+                                            <action selector="change2:" destination="BYZ-38-t0r" id="a9q-4v-CUb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="MtJ-WN-oq4">
+                                        <connections>
+                                            <action selector="change3:" destination="BYZ-38-t0r" id="w3Z-22-elw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="SSn-ax-Xwz"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="m08-YB-Ogz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="VbT-C7-Qtc"/>
-                            <constraint firstItem="m08-YB-Ogz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aOk-CW-Ki8"/>
-                            <constraint firstItem="m08-YB-Ogz" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="im1-se-jYJ"/>
-                            <constraint firstAttribute="trailing" secondItem="m08-YB-Ogz" secondAttribute="trailing" id="pCQ-IH-ciR"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="webView" destination="m08-YB-Ogz" id="e3i-7T-Nkz"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

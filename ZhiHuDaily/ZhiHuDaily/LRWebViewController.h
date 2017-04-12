@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LRWebModel.h"
 
-@interface LRWebViewController : UIViewController <UIWebViewDelegate>
+@interface LRWebViewController : UIViewController <UIGestureRecognizerDelegate,UIScrollViewDelegate>
 @property (nonatomic,copy) NSString *storyID;
 
 
