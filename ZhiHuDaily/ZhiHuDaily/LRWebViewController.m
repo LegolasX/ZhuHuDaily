@@ -15,7 +15,7 @@
 @property (strong,nonatomic)WKWebView *webView;
 @property (nonatomic) LRWebModel *model;
 @property (strong,nonatomic) UIView *flexibleView;
-@property (strong,nonatomic) UIScrollView *mainScrollView;
+//@property (strong,nonatomic) UIScrollView *mainScrollView;
 
 //- (void)loadWebview;
 @end
@@ -46,26 +46,27 @@
 @synthesize storyID;
 @synthesize flexibleView;
 @synthesize model;
-@synthesize mainScrollView;
+//@synthesize mainScrollView;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = true;
 //    self.navigationItem.hidesBackButton = true;
-    [self.navigationController.interactivePopGestureRecognizer setEnabled:true]; // isEnabled = NO;// .interactivePopGestureRecognizer.isEnabled = true;
+    [self.navigationController.interactivePopGestureRecognizer setEnabled:true];
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
 //    self.webView.scrollView.delegate = self;
     CGRect rect = UIScreen.mainScreen.bounds;
     [self.view setFrame:rect];
-    mainScrollView = [[UIScrollView alloc]initWithFrame:rect];
-    mainScrollView.delegate = self;
+//    mainScrollView = [[UIScrollView alloc]initWithFrame:rect];
+//    mainScrollView.delegate = self;
     webView = [[WKWebView alloc] initWithFrame:rect];
     webView.UIDelegate = self;
-    [webView.scrollView setScrollEnabled:false];
-    [mainScrollView setScrollEnabled:true];
+//    [webView.scrollView setScrollEnabled:false];
+//    [mainScrollView setScrollEnabled:true];
     webView.navigationDelegate = self;
-    [self.view insertSubview:mainScrollView atIndex:0];
-    mainScrollView.clipsToBounds = true;
-    
+//    [self.view insertSubview:mainScrollView atIndex:0];
+//    mainScrollView.clipsToBounds = true;
+    webView.scrollView.delegate = self;
+    [self.view addSubview:webView];
     [self loadWebView];
     
 }
@@ -89,8 +90,8 @@
         [flexibleView setContentMode:UIViewContentModeCenter];
         [imageView setContentMode:UIViewContentModeScaleToFill];
         [imageView sd_setImageWithURL:model.imageURL];
-        [mainScrollView addSubview:webView];
-        [mainScrollView addSubview:flexibleView];
+        
+        [webView.scrollView addSubview:flexibleView];
         NSString *html = [NSString stringWithFormat:@"<html><head><meta name='viewport' content='initial-scale=1.0,user-scalable=no' /><link type='text/css' rel='stylesheet' href = 'http://news-at.zhihu.com/css/news_qa.auto.css?v=4b3e3' ></link></head><body>%@</body></html>",model.body];
         [webView loadHTMLString:html baseURL:nil];
 
@@ -123,7 +124,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CGFloat offset = self.mainScrollView.contentOffset.y;
+    CGFloat offset = scrollView.contentOffset.y;
     NSLog(@"current offset = %f",offset);
     if (offset<0.f&&offset>-80.f) {
         [flexibleView setFrame:CGRectMake(0, 0, 375, 220+1*(-offset))];
@@ -164,12 +165,12 @@
 //}
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     
-    [self.webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable data, NSError * _Nullable error) {
-//        webView.height = [data floatValue];
-        
-        mainScrollView.contentSize = CGSizeMake(375, [data floatValue]+200.f);
-//        [_placeHolderView removeFromSuperview];
-    }];
+//    [self.webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable data, NSError * _Nullable error) {
+////        webView.height = [data floatValue];
+//        
+//        mainScrollView.contentSize = CGSizeMake(375, [data floatValue]+200.f);
+////        [_placeHolderView removeFromSuperview];
+//    }];
 }
 - (IBAction)changeFrame2:(id)sender {
 }
