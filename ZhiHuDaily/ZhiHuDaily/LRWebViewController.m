@@ -65,7 +65,7 @@
     webView.navigationDelegate = self;
 //    [self.view insertSubview:mainScrollView atIndex:0];
 //    mainScrollView.clipsToBounds = true;
-    webView.scrollView.delegate = self;
+//    webView.scrollView.delegate = self;
     [self.view addSubview:webView];
     [self loadWebView];
     
@@ -83,11 +83,11 @@
         model = [LRWebModel mj_objectWithKeyValues:responseObject];
         NSLog(@"title = %@",model.title);
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.width)];
-        flexibleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 375, 220)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -87.5, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.width)];
+        flexibleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 375, 200)];
         flexibleView.clipsToBounds = true;
         [flexibleView addSubview:imageView];
-        [flexibleView setContentMode:UIViewContentModeCenter];
+//        [flexibleView setContentMode:UIViewContentModeCenter];
         [imageView setContentMode:UIViewContentModeScaleToFill];
         [imageView sd_setImageWithURL:model.imageURL];
         
@@ -126,18 +126,33 @@
     
     CGFloat offset = scrollView.contentOffset.y;
     NSLog(@"current offset = %f",offset);
-    if (offset<0.f&&offset>-80.f) {
-        [flexibleView setFrame:CGRectMake(0, 0, 375, 220+1*(-offset))];
-        
-        NSString *js = [NSString stringWithFormat:@"var array = document.getElementsByClassName(\"img-place-holder\" );array = [].slice.call(array);array.forEach(function(child){child.style.height=\"%0.0fpx\";});",220-1*offset];
-//        [webView.scrollView setContentOffset:CGPointMake(0, -1*offset) animated:false];
+    if (offset<0.f&&offset>-40.f) {
+        [flexibleView setFrame:CGRectMake(0, offset , 375, 200+2*(-offset))];
+        UIImageView *imageView = flexibleView.subviews[0];
+        [imageView setFrame:CGRectMake(0, -87.5-offset , 375, 375)];
+        NSString *js = [NSString stringWithFormat:@"var array = document.getElementsByClassName(\"img-place-holder\" );array = [].slice.call(array);array.forEach(function(child){child.style.height=\"%0.0fpx\";});",200-1*offset];
+//        NSLog(@"WebView.ScrollView.frame: Width:%f Height:%f",webView.scrollView.frame.size.width,webView.scrollView.frame.size.height);
+//        NSLog(@"WebView.ScrollView.bounds: Width:%f Height:%f",webView.scrollView.bounds.size.width,webView.scrollView.bounds.size.height);
         [webView evaluateJavaScript:js completionHandler:^(id item, NSError * _Nullable error) {
             if (error!=NULL) {
                 NSLog(@"%@",error);
             }
         }];
-    }else if (offset<-80.f) {
-        [webView.scrollView setContentOffset:CGPointMake(0, -80.f)];
+    }else if (offset<=-40.f) {
+        [webView.scrollView setContentOffset:CGPointMake(0, -40.f)];
+        [flexibleView setFrame:CGRectMake(0, -40 , 375, 280)];
+        UIImageView *imageView = flexibleView.subviews[0];
+        [imageView setFrame:CGRectMake(0, -37.5 , 375, 375)];
+        NSString *js = [NSString stringWithFormat:@"var array = document.getElementsByClassName(\"img-place-holder\" );array = [].slice.call(array);array.forEach(function(child){child.style.height=\"240px\";});"];
+        [webView evaluateJavaScript:js completionHandler:^(id item, NSError * _Nullable error) {
+            if (error!=NULL) {
+                NSLog(@"%@",error);
+            }
+        }];
+
+//        NSLog(@"UIScreen.bounds: Width:%f Height:%f",UIScreen.mainScreen.bounds.size.width,UIScreen.mainScreen.bounds.size.height);
+//        NSLog(@"WebView.ScrollView.frame: Width:%f Height:%f",webView.scrollView.frame.size.width,webView.scrollView.frame.size.height);
+//        NSLog(@"WebView.ScrollView.bounds: Width:%f Height:%f",webView.scrollView.bounds.size.width,webView.scrollView.bounds.size.height);
     }
 //    else if (offset>0&&offset<220.f) {
 //        webView.scrollView.clipsToBounds = NO;
@@ -164,7 +179,7 @@
 //        mainScrollView.contentSize = CGSizeMake(375, self.webView.bounds.size.height+200.f);
 //}
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
-    
+    webView.scrollView.delegate = self;
 //    [self.webView evaluateJavaScript:@"document.body.scrollHeight"completionHandler:^(id _Nullable data, NSError * _Nullable error) {
 ////        webView.height = [data floatValue];
 //        
