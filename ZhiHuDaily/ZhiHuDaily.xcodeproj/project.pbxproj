@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A06824291E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png in Resources */ = {isa = PBXBuildFile; fileRef = A06824281E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png */; };
 		A0F626BB1E9BB80600E3F5D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626BA1E9BB80600E3F5D9 /* main.m */; };
 		A0F626BE1E9BB80600E3F5D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */; };
 		A0F626C11E9BB80600E3F5D9 /* LRWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626C01E9BB80600E3F5D9 /* LRWebViewController.m */; };
@@ -39,6 +40,7 @@
 		16DD3962A7D730EF68C6C7A8 /* Pods_ZhiHuDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhiHuDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		764737A63010F37E20F292BA /* Pods-ZhiHuDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhiHuDaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily.release.xcconfig"; sourceTree = "<group>"; };
 		9FBAB90BE40006E2A01027F8 /* Pods-ZhiHuDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhiHuDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily.debug.xcconfig"; sourceTree = "<group>"; };
+		A06824281E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-04-08 下午10.40.10.png"; sourceTree = "<group>"; };
 		A0F626B61E9BB80600E3F5D9 /* ZhiHuDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhiHuDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0F626BA1E9BB80600E3F5D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0F626BC1E9BB80600E3F5D9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		A0F626B91E9BB80600E3F5D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A06824281E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png */,
 				A0F626BC1E9BB80600E3F5D9 /* AppDelegate.h */,
 				A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */,
 				A0F626C81E9BB80600E3F5D9 /* Assets.xcassets */,
@@ -223,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A06824291E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png in Resources */,
 				A0F626CC1E9BB80600E3F5D9 /* LaunchScreen.storyboard in Resources */,
 				A0F626C91E9BB80600E3F5D9 /* Assets.xcassets in Resources */,
 				A0F626C41E9BB80600E3F5D9 /* Main.storyboard in Resources */,
