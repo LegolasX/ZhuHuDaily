@@ -16,7 +16,6 @@
 @property (nonatomic) LRWebModel *model;
 @property (strong,nonatomic) UIView *flexibleView;
 @property (nonatomic) UIStatusBarStyle statusBarStyle;
-@property (strong,nonatomic) UIWindow *wind;
 @property (strong,nonatomic) UIView *statusBarView;
 @end
 
@@ -27,7 +26,6 @@
 @synthesize flexibleView;
 @synthesize model;
 @synthesize statusBarStyle;
-@synthesize wind;
 @synthesize  statusBarView;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +43,7 @@
     
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.userContentController = [[WKUserContentController alloc] init];
-    NSString *js = @"var views = document.getElementsByClassName('view-more'); views = [].slice.call(views); views.forEach(function(child){child.style.display='none';}); var questions = document.getElementsByClassName('question'); questions[questions.length-1].style.display = 'none'; document.getElementsByClassName('question')[0].style.display = 'none'";
+    NSString *js = @"";//var views = document.getElementsByClassName('view-more'); views = [].slice.call(views); views.forEach(function(child){child.style.display='none';}); var questions = document.getElementsByClassName('question'); questions[questions.length-1].style.display = 'none'; document.getElementsByClassName('question')[0].style.display = 'none'";
 
     WKUserScript *script = [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:false];
     [config.userContentController addUserScript:script];
@@ -80,7 +78,7 @@
        
         
         NSString *html = [NSString stringWithFormat:@"<html><head><meta name='viewport' content='initial-scale=1.0,user-scalable=no' /><link type='text/css' rel='stylesheet' href = 'http://news-at.zhihu.com/css/news_qa.auto.css?v=4b3e3' ></link></head><body>%@</body></html>",model.body];
-        NSLog(@"%@",html);
+//        NSLog(@"%@",html);
         
         [webView loadHTMLString:html baseURL:nil];
         
@@ -230,16 +228,6 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     self.webView.scrollView.delegate = self;
-    // 图片缩放的js代码
-    NSString *js = @"document.getElementsByClassName('view-more')[0].style.display = 'none'; var questions = document.getElementsByClassName('question'); questions[questions.length-1].style.display = 'none'; document.getElementsByClassName('question')[0].style.display = 'none'";
-//    [webView evaluateJavaScript:js completionHandler:nil];
-    // 根据JS字符串初始化WKUserScript对象
-//    WKUserScript *script = [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-//    // 根据生成的WKUserScript对象，初始化WKWebViewConfiguration
-//    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-//    [config.userContentController addUserScript:script];
-//    webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
-//    [_webView loadHTMLString:@"<head></head><img src='http://www.nsu.edu.cn/v/2014v3/img/background/3.jpg' />"baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {

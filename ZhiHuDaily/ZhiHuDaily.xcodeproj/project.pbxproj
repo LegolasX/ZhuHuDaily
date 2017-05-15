@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A04239AC1EC5533200A9BBED /* LRLeftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A04239AB1EC5533200A9BBED /* LRLeftVC.m */; };
+		A04239AF1EC5552400A9BBED /* LRThemesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A04239AE1EC5552400A9BBED /* LRThemesModel.m */; };
+		A04239B41EC601F300A9BBED /* ZYSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04239B11EC601F300A9BBED /* ZYSliderViewController.m */; };
+		A04239B51EC601F300A9BBED /* UIViewController+ZYSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A04239B31EC601F300A9BBED /* UIViewController+ZYSliderViewController.m */; };
 		A06824291E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png in Resources */ = {isa = PBXBuildFile; fileRef = A06824281E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png */; };
 		A0F626BB1E9BB80600E3F5D9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626BA1E9BB80600E3F5D9 /* main.m */; };
 		A0F626BE1E9BB80600E3F5D9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F626BD1E9BB80600E3F5D9 /* AppDelegate.m */; };
@@ -40,6 +44,14 @@
 		16DD3962A7D730EF68C6C7A8 /* Pods_ZhiHuDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZhiHuDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		764737A63010F37E20F292BA /* Pods-ZhiHuDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhiHuDaily.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily.release.xcconfig"; sourceTree = "<group>"; };
 		9FBAB90BE40006E2A01027F8 /* Pods-ZhiHuDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZhiHuDaily.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZhiHuDaily/Pods-ZhiHuDaily.debug.xcconfig"; sourceTree = "<group>"; };
+		A04239AA1EC5533200A9BBED /* LRLeftVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRLeftVC.h; sourceTree = "<group>"; };
+		A04239AB1EC5533200A9BBED /* LRLeftVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLeftVC.m; sourceTree = "<group>"; };
+		A04239AD1EC5552400A9BBED /* LRThemesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRThemesModel.h; sourceTree = "<group>"; };
+		A04239AE1EC5552400A9BBED /* LRThemesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRThemesModel.m; sourceTree = "<group>"; };
+		A04239B01EC601F300A9BBED /* ZYSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSliderViewController.h; sourceTree = "<group>"; };
+		A04239B11EC601F300A9BBED /* ZYSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSliderViewController.m; sourceTree = "<group>"; };
+		A04239B21EC601F300A9BBED /* UIViewController+ZYSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ZYSliderViewController.h"; sourceTree = "<group>"; };
+		A04239B31EC601F300A9BBED /* UIViewController+ZYSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ZYSliderViewController.m"; sourceTree = "<group>"; };
 		A06824281E9F9DAF00E358BA /* 屏幕快照 2017-04-08 下午10.40.10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-04-08 下午10.40.10.png"; sourceTree = "<group>"; };
 		A0F626B61E9BB80600E3F5D9 /* ZhiHuDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhiHuDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0F626BA1E9BB80600E3F5D9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -119,6 +131,8 @@
 				A0F626BF1E9BB80600E3F5D9 /* LRWebViewController.h */,
 				A0F626C01E9BB80600E3F5D9 /* LRWebViewController.m */,
 				A0F626C21E9BB80600E3F5D9 /* Main.storyboard */,
+				A04239AA1EC5533200A9BBED /* LRLeftVC.h */,
+				A04239AB1EC5533200A9BBED /* LRLeftVC.m */,
 				A0F626D31E9BB92400E3F5D9 /* LRMainTableVC.h */,
 				A0F626D41E9BB92400E3F5D9 /* LRMainTableVC.m */,
 				A0F626E81E9CC44A00E3F5D9 /* LRTableVContentCell.h */,
@@ -150,6 +164,8 @@
 				A0F626E61E9C6B2900E3F5D9 /* LRZhiHuModel.m */,
 				A0F626EB1E9CF2A100E3F5D9 /* LRWebModel.h */,
 				A0F626EC1E9CF2A100E3F5D9 /* LRWebModel.m */,
+				A04239AD1EC5552400A9BBED /* LRThemesModel.h */,
+				A04239AE1EC5552400A9BBED /* LRThemesModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -159,6 +175,10 @@
 			children = (
 				A0F626F01E9E222C00E3F5D9 /* GradientView.h */,
 				A0F626F11E9E222C00E3F5D9 /* GradientView.m */,
+				A04239B01EC601F300A9BBED /* ZYSliderViewController.h */,
+				A04239B11EC601F300A9BBED /* ZYSliderViewController.m */,
+				A04239B21EC601F300A9BBED /* UIViewController+ZYSliderViewController.h */,
+				A04239B31EC601F300A9BBED /* UIViewController+ZYSliderViewController.m */,
 			);
 			name = Framework;
 			sourceTree = "<group>";
@@ -291,10 +311,14 @@
 				A0F626C11E9BB80600E3F5D9 /* LRWebViewController.m in Sources */,
 				A0F626F21E9E222C00E3F5D9 /* GradientView.m in Sources */,
 				A0F626BE1E9BB80600E3F5D9 /* AppDelegate.m in Sources */,
+				A04239B51EC601F300A9BBED /* UIViewController+ZYSliderViewController.m in Sources */,
+				A04239AF1EC5552400A9BBED /* LRThemesModel.m in Sources */,
+				A04239B41EC601F300A9BBED /* ZYSliderViewController.m in Sources */,
 				A0F626EA1E9CC44A00E3F5D9 /* LRTableVContentCell.m in Sources */,
 				A0F626C71E9BB80600E3F5D9 /* ZhiHuDaily.xcdatamodeld in Sources */,
 				A0F626ED1E9CF2A100E3F5D9 /* LRWebModel.m in Sources */,
 				A0F626BB1E9BB80600E3F5D9 /* main.m in Sources */,
+				A04239AC1EC5533200A9BBED /* LRLeftVC.m in Sources */,
 				A0F626E71E9C6B2900E3F5D9 /* LRZhiHuModel.m in Sources */,
 				A0F626D51E9BB92400E3F5D9 /* LRMainTableVC.m in Sources */,
 			);
