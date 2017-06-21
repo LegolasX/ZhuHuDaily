@@ -11,12 +11,15 @@
 #import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <WebKit/WebKit.h>
+
+
 @interface LRWebViewController () <WKUIDelegate,WKNavigationDelegate,UIGestureRecognizerDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)WKWebView *webView;
 @property (nonatomic) LRWebModel *model;
 @property (strong,nonatomic) UIView *flexibleView;
 @property (nonatomic) UIStatusBarStyle statusBarStyle;
 @property (strong,nonatomic) UIView *statusBarView;
+
 @end
 
 
@@ -27,6 +30,7 @@
 @synthesize model;
 @synthesize statusBarStyle;
 @synthesize  statusBarView;
+@synthesize storyChangedDelegate;
 - (void)viewDidLoad {
     [super viewDidLoad];
     //隐藏默认的导航栏并保留原有的左滑返回手势
@@ -190,6 +194,7 @@
             }
         }];
     }else if (offset<=-40.f) {
+        
         [statusBarView setBackgroundColor:[UIColor clearColor]];
         statusBarStyle = UIStatusBarStyleLightContent;
         //当用户想要继续上滑时，不应该继续上滑 但是滑动速度过快的时候 offset的值经常会突破40 动画会跳来跳去 因此在大于等于40的时候把上面的所有值都写死 从而使动画流畅
@@ -211,6 +216,13 @@
     }
     [self setNeedsStatusBarAppearanceUpdate];
     
+}
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if ([self.storyChangedDelegate respondsToSelector:@selector(getLastStoryID:)]) {
+        self.storyID = [self.storyChangedDelegate getLastStoryID:self.storyID];
+        NSLog(@"to top%f",scrollView.contentOffset.y);
+        [self loadWebView];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

@@ -19,7 +19,9 @@ static CGFloat const leftScale = 0.8f;
 static CGFloat const leftDragbleWidth = 80.f;
 static CGFloat const leftMinDragLength = 100.f;
 
-@interface LRMainTableVC () <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+
+
+@interface LRMainTableVC () <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,StoryChangedProtocol>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -34,9 +36,6 @@ static CGFloat const leftMinDragLength = 100.f;
 @property (nonatomic) CGAffineTransform originLeftVCTrans;
 @property (nonatomic) CGAffineTransform originMainVCTrans;
 @property (nonatomic) NSMutableArray *grayArray;
-//@property (nonatomic) NSManagedObjectModel *managedObjectModel;
-////@property (nonatomic) NSManagedObjectContext *
-//@property (nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @end
 
 
@@ -79,23 +78,13 @@ static CGFloat const leftMinDragLength = 100.f;
     tapGesture.delegate = self;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognizer:)];
     [self.view addGestureRecognizer:panGesture];
+
     
     _originLeftVCTrans = _leftView.transform;
     _originMainVCTrans = _tableView.transform;
     
     _grayArray = [[NSMutableArray alloc]init];
     
-//    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"CoreDataTryout" withExtension:@"momd"];
-//    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-//    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataTryout.sqlite"];
-//    
-//    
-//    
-//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-    
-//    }
-
 }
 
 
@@ -139,38 +128,6 @@ static CGFloat const leftMinDragLength = 100.f;
     return true;
 }
 
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-//    NSLog(@"this %@ %@",[gestureRecognizer class],[gestureRecognizer.view class]);
-//    NSLog(@"other %@ %@",[otherGestureRecognizer class],[otherGestureRecognizer.view class]);
-//    if ([[otherGestureRecognizer.view class] isSubclassOfClass:[UIView class]]) {
-//        return NO;
-//    }
-//    if( [[otherGestureRecognizer.view class] isSubclassOfClass:[UITableViewCell class]] ||
-//       [NSStringFromClass([otherGestureRecognizer.view class]) isEqualToString:@"UITableViewCellScrollView"] ||
-//       [NSStringFromClass([otherGestureRecognizer.view class]) isEqualToString:@"UITableViewWrapperView"]) {
-//        
-//        return YES;
-//    }
-//    return YES;
-//}
-//
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-//{
-//    // 打印touch到的视图
-//    NSLog(@"%@", NSStringFromClass([touch.view class]));
-//    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]&&!_leftShow) {
-//        printf("tap");
-//        return NO;
-//    }
-//    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-//        printf("pan");
-//    }
-//    // 如果视图为UITableViewCellContentView（即点击tableViewCell），则不截获Touch事件
-//    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-//        return NO;
-//    }
-//    return  YES;
-//}
 
 - (void) showLeft {
     [UIView animateWithDuration:0.3 animations:^{
@@ -203,9 +160,10 @@ static CGFloat const leftMinDragLength = 100.f;
                         _tableView.transform = CGAffineTransformTranslate(_tableView.transform,x, 0);
                     }];
                 }
+            
             _lastPoint = newPoint;
 //            NSLog(@"changed");
-            break;}
+                        break;}
         case UIGestureRecognizerStateEnded:
             NSLog(@"ended");
             if (_tableView.transform.tx>100) {
@@ -229,7 +187,6 @@ static CGFloat const leftMinDragLength = 100.f;
         NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:false block:^(NSTimer * _Nonnull timer) {
             [self.tableView.refreshControl endRefreshing];
         }];
-    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -262,15 +219,36 @@ static CGFloat const leftMinDragLength = 100.f;
         cell.textLabel.textColor = [UIColor grayColor];
     }
     NSURL *url = story.imageURLs[0];
-    cell.tag = [story.storyID integerValue];
+    
+    cell.tag = indexPath.row;
     [cell.imageView sd_setImageWithURL:url];
     
     return cell;
 }
 
-//- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return false;
-//}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CATransform3D rotation;//3D旋转初始化对象
+    rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);//角度控制
+    
+    //逆时针旋转
+    rotation.m34 = 1.0/ -600;
+    
+    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
+    cell.layer.shadowOffset = CGSizeMake(10, 10);
+    cell.alpha = 0;
+    
+    cell.layer.transform = rotation;
+    
+    [UIView beginAnimations:@"rotation"context:NULL];
+    //旋转时间
+    [UIView setAnimationDuration:0.8];
+    cell.layer.transform = CATransform3DIdentity;
+    cell.alpha = 1;
+    cell.layer.shadowOffset = CGSizeMake(0, 0);
+    [UIView commitAnimations];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [_grayArray addObject:[NSNumber numberWithInteger:indexPath.row]];
@@ -287,9 +265,22 @@ static CGFloat const leftMinDragLength = 100.f;
     if ([[segue identifier] isEqualToString:@"webView"]) {
         LRWebViewController *dvc = [segue destinationViewController];
         LRTableVContentCell *cell = sender;
-        NSString *ID = [NSString stringWithFormat:@"%d", cell.tag];
+        LRModelStory *story = model.stories[cell.tag];
+        NSString *ID = story.storyID;
         dvc.storyID = ID;
+        dvc.storyChangedDelegate = self; // storyChangedDelegate = self;
     }
+}
+
+#pragma mark - storyChangedDelegate
+- (NSString *)getLastStoryID:(NSString *)oldStoryID {
+    __block NSString  *newID = [[NSString alloc]init];
+    [model.stories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj storyID]==oldStoryID) {
+            newID = [model.stories[idx-1==0 ? idx : idx-1 ] storyID];
+        }
+    }];
+    return newID;
 }
 
 

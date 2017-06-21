@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "LRWebModel.h"
-
+#import "LRMainTableVC.h"
 @interface LRWebViewController : UIViewController <UIGestureRecognizerDelegate,UIScrollViewDelegate>
 @property (nonatomic,copy) NSString *storyID;
-
+@property (nonatomic,weak) id<StoryChangedProtocol> storyChangedDelegate;
 
 @end
 
