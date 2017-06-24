@@ -11,7 +11,8 @@
 @interface LRMainTableVC : UIViewController
 
 @end
+
 @protocol StoryChangedProtocol<NSObject>
 @required
-- (NSString *)getLastStoryID:(NSString *)oldStoryID;
+- (NSString *)getStoryID:(NSString *)oldStoryID isLast:(BOOL)isLast;
 @end

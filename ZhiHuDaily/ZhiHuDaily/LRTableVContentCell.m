@@ -21,14 +21,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [UIColor lightGrayColor];
     UIView *bkView = [[UIView alloc]initWithFrame:self.frame];
     bkView.backgroundColor = [UIColor whiteColor];
     
     CALayer *layer = bkView.layer;
-    layer.cornerRadius = 20;
-    layer.borderWidth = 10;
-    layer.borderColor = [[UIColor grayColor] CGColor];
+    layer.cornerRadius = 15;
+    layer.borderWidth = 2;
+    layer.borderColor = [[UIColor lightGrayColor] CGColor];
     [self setBackgroundView:bkView];
     // Initialization code
 }

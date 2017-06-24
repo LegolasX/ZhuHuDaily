@@ -18,25 +18,25 @@
 @synthesize type;
 @synthesize storyID;
 @synthesize css;
+
 - (instancetype)init
 {
-    NSLog(@"get all my setup OK~");
-    [LRWebModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-        return @{
-                 @"imageSouce" : @"image-source",
-                 @"imageURL" : @"image",
-                 @"shareURL" : @"share_url",
-                 @"storyID" : @"id"
-                 };
-    }];
-    [LRWebModel mj_setupObjectClassInArray:^NSDictionary *{
-        return @{
-                 @"css" : @"NSString"
-                 };
-    }];
+//    NSLog(@"get all my setup OK~");
     self = [super init];
     if (self) {
-        
+        [LRWebModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+            return @{
+                     @"imageSouce" : @"image-source",
+                     @"imageURL" : @"image",
+                     @"shareURL" : @"share_url",
+                     @"storyID" : @"id"
+                     };
+        }];
+        [LRWebModel mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"css" : @"NSString"
+                     };
+        }];
     }
     return self;
 }
