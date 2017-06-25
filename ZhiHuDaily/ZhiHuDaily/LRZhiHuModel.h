@@ -26,6 +26,6 @@
 @property (nonatomic,copy) NSArray *topStories;
 
 - (void)printAllModels;
-
+- (void)addStories:(NSArray *)newStories;
 @end
 

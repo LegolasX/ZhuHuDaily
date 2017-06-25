@@ -103,4 +103,8 @@
     NSLog(@"}");
 
 }
+
+- (void)addStories:(NSArray *)newStories {
+    self.stories = [self.stories arrayByAddingObjectsFromArray:newStories];
+}
 @end
