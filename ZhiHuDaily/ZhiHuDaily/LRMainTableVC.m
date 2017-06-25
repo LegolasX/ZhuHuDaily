@@ -33,7 +33,7 @@ static CGFloat const leftShowWidth = 187.f;
 @property (nonatomic) CGPoint lastPoint;
 @property (nonatomic) CGAffineTransform originLeftVCTrans;
 @property (nonatomic) CGAffineTransform originMainVCTrans;
-@property (nonatomic) NSMutableArray *grayArray;
+//@property (nonatomic) NSMutableArray *grayArray;
 @end
 
 
@@ -42,6 +42,7 @@ static CGFloat const leftShowWidth = 187.f;
 @synthesize model;
 
 - (void)viewDidLoad {
+    NSLog(@"viewDidLoad called");
     [super viewDidLoad];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -71,9 +72,6 @@ static CGFloat const leftShowWidth = 187.f;
     self.tableView.refreshControl = control;
     [control addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     
-    //初始化浏览后变灰数组
-    _grayArray = [[NSMutableArray alloc]init];
-    
     //备份初始transform
     _originLeftVCTrans = _leftView.transform;
     _originMainVCTrans = _tableView.transform;
@@ -81,13 +79,23 @@ static CGFloat const leftShowWidth = 187.f;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [manager GET:@"http://news-at.zhihu.com/api/4/news/latest" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        #pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
+#pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
         model = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
         [self.tableView reloadData];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+    
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"viewWillAppear called");
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [user arrayForKey:@"gery"];
+    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:[obj integerValue] inSection:1];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:path, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -98,7 +106,7 @@ static CGFloat const leftShowWidth = 187.f;
 #pragma mark - gesture handle
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint point = [gestureRecognizer locationInView:self.view];
-//    NSLog(@"x = %f y = %f %d",point.x,point.y,_leftShow);
+    //    NSLog(@"x = %f y = %f %d",point.x,point.y,_leftShow);
     //如果是tapGuesture 而且leftShow为false 那么说明画面在中间  或者leftshow 为真 且按压的点在左侧 那么tapGesture不应该接管
     if (([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]&&!_leftShow)||(_leftShow&&point.x<_leftView.frame.size.width)) {
         return false;
@@ -130,16 +138,16 @@ static CGFloat const leftShowWidth = 187.f;
             break;
         case UIGestureRecognizerStateChanged:{
             CGFloat x = newPoint.x - _lastPoint.x;
-                if ((_tableView.transform.tx==0&&x>0)||_tableView.transform.tx>0) {
-                    [UIView animateWithDuration:0 animations:^{
-                        _leftView.transform = CGAffineTransformTranslate(_leftView.transform,x, 0);
-                        _tableView.transform = CGAffineTransformTranslate(_tableView.transform,x, 0);
-                    }];
-                }
+            if ((_tableView.transform.tx==0&&x>0)||_tableView.transform.tx>0) {
+                [UIView animateWithDuration:0 animations:^{
+                    _leftView.transform = CGAffineTransformTranslate(_leftView.transform,x, 0);
+                    _tableView.transform = CGAffineTransformTranslate(_tableView.transform,x, 0);
+                }];
+            }
             
             _lastPoint = newPoint;
-//            NSLog(@"changed");
-                        break;}
+            //            NSLog(@"changed");
+            break;}
         case UIGestureRecognizerStateEnded:
             if (_tableView.transform.tx>100) {
                 [self showLeft];
@@ -158,10 +166,14 @@ static CGFloat const leftShowWidth = 187.f;
 
 - (void) refresh:(id)paramSender {
     
-        [_tableView reloadData];
-//        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:false block:^(NSTimer * _Nonnull timer) {
-//            [self.tableView.refreshControl endRefreshing];
-//        }];
+    [_tableView reloadData];
+# pragma mark - IMPORTANT! 测试用 记得删除
+    [NSUserDefaults resetStandardUserDefaults];
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    [user removeObjectForKey:@"grey"];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:false block:^(NSTimer * _Nonnull timer) {
+        [self.tableView.refreshControl endRefreshing];
+    }];
 }
 
 #pragma mark - Table view data source and delegate
@@ -176,15 +188,18 @@ static CGFloat const leftShowWidth = 187.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"cellForRowAtIndexPath called");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
     LRModelStory *story = model.stories[indexPath.row];
     cell.textLabel.text = story.title;
-    if ([_grayArray containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [user arrayForKey:@"grey"];
+    if ([array containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
         cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
     }
     NSURL *url = story.imageURLs[0];
-    
-    cell.tag = indexPath.row;
     [cell.imageView sd_setImageWithURL:url];
     
     return cell;
@@ -214,7 +229,14 @@ static CGFloat const leftShowWidth = 187.f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [_grayArray addObject:[NSNumber numberWithInteger:indexPath.row]];
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[user arrayForKey:@"grey"]];
+    NSNumber *number = [NSNumber numberWithInteger:indexPath.row];
+    if (![array containsObject:number]) {
+        [array addObject:number];
+    }
+    [user setObject:array forKey:@"grey"];
+    //    [_grayArray addObject:[NSNumber numberWithInteger:indexPath.row]];
     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
@@ -227,8 +249,10 @@ static CGFloat const leftShowWidth = 187.f;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"webView"]) {
         LRWebViewController *dvc = [segue destinationViewController];
-        LRTableVContentCell *cell = sender;
-        LRModelStory *story = model.stories[cell.tag];
+        LRTableVContentCell *cell =(LRTableVContentCell *)sender;
+        
+        NSIndexPath *path = [self.tableView indexPathForCell:cell];
+        LRModelStory *story = model.stories[path.row];
         dvc.storyID = story.storyID;//传递ID
         dvc.storyChangedDelegate = self; //设置得到storyid的delegate
     }
@@ -236,17 +260,32 @@ static CGFloat const leftShowWidth = 187.f;
 
 #pragma mark - storyChangedDelegate
 - (NSString *)getStoryID:(NSString *)oldStoryID isLast:(BOOL) isLast {
-    __block NSString  *newID = [[NSString alloc]init];
+    __block NSString  *newIDString = [[NSString alloc]init];
+    __block NSUInteger ID;
     [model.stories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj storyID]==oldStoryID) {
             if (isLast) {//拿到上一个ID
-                newID = [model.stories[idx-1==-1 ? idx : idx-1 ] storyID];
+                ID = idx-1==-1 ? idx : idx-1 ;
+                newIDString = [model.stories[ID] storyID];
             } else {//拿到下一个ID
-                newID = [model.stories[idx==model.stories.count-1 ? idx : idx+1 ] storyID];
+                ID = idx==model.stories.count-1 ? idx : idx+1;
+                newIDString = [model.stories[ID] storyID];
             }
         }
     }];
-    return newID;
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[user arrayForKey:@"grey"]];
+    NSNumber *number = [NSNumber numberWithInteger:ID];
+    if (![array containsObject:number]) {
+        [array addObject:number];
+    }
+    [user setObject:array forKey:@"grey"];
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:ID inSection:1];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:path, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    
+    return newIDString;
 }
 
 @end
