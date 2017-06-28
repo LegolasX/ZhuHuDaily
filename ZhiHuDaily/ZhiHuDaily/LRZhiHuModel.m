@@ -107,4 +107,9 @@
 - (void)addStories:(NSArray *)newStories {
     self.stories = [self.stories arrayByAddingObjectsFromArray:newStories];
 }
+
+- (NSString *)getYesterday {
+    NSInteger today = self.date.integerValue;
+    return [NSString stringWithFormat:@"%ld",today - 1];
+}
 @end

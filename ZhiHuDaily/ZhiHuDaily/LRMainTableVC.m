@@ -24,7 +24,7 @@ static CGFloat const leftShowWidth = 187.f;
 @interface LRMainTableVC () <UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,StoryChangedProtocol>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic) LRZhiHuModel *model;
+@property (nonatomic) NSMutableArray *model;
 @property (nonatomic) UIViewController *leftVC;
 @property (nonatomic) UIView *leftView;
 @property (nonatomic) CGAffineTransform transform;
@@ -32,6 +32,7 @@ static CGFloat const leftShowWidth = 187.f;
 @property (nonatomic) BOOL leftShow;
 @property (nonatomic) CGPoint lastPoint;
 @property (nonatomic) CGAffineTransform originLeftVCTrans;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (nonatomic) CGAffineTransform originMainVCTrans;
 //@property (nonatomic) NSMutableArray *grayArray;
 @end
@@ -80,12 +81,15 @@ static CGFloat const leftShowWidth = 187.f;
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [manager GET:@"http://news-at.zhihu.com/api/4/news/latest" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
 #pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
-        model = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
+        model = [[NSMutableArray alloc]init];
+        
+        [model addObject:[LRZhiHuModel mj_objectWithKeyValues:responseObject]];
         [self.tableView reloadData];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
     
+    self.activity.hidesWhenStopped = true;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -184,13 +188,13 @@ static CGFloat const leftShowWidth = 187.f;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) return 0;
-    return model.stories.count;
+    return ((LRZhiHuModel *)model[0]).stories.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"cellForRowAtIndexPath called");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
-    LRModelStory *story = model.stories[indexPath.row];
+    LRModelStory *story = ((LRZhiHuModel *)model[0]).stories[indexPath.row];
     cell.textLabel.text = story.title;
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSArray *array = [user arrayForKey:@"grey"];
@@ -244,6 +248,36 @@ static CGFloat const leftShowWidth = 187.f;
     return YES;
 }
 
+#pragma mark - scroll view
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%f",scrollView.contentOffset.y);
+    CGFloat offset = scrollView.contentOffset.y;
+    CGFloat actualHeight = scrollView.contentOffset.y + UIScreen.mainScreen.bounds.size.height + scrollView.contentInset.top;
+    if (scrollView.contentSize.height>20 && actualHeight > scrollView.contentSize.height + 30) {
+        [self.activity startAnimating];
+//        scrollView.contentOffset = CGPointMake(0, offset + self.activity.frame.size.height);
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+        NSMutableString *string = [[NSMutableString alloc]initWithString:@"https://news-at.zhihu.com/api/4/news/before/"];
+        NSString *newDate = [((LRZhiHuModel *)model[0]) getYesterday];
+        [string appendString:newDate];
+        ((LRZhiHuModel *)model[0]).date = newDate;
+        [manager GET:string parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+#pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
+            LRZhiHuModel *newModel = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
+            [((LRZhiHuModel *)model[0]) addStories:newModel.stories];
+            [self.tableView reloadData];
+        } failure:^(NSURLSessionTask *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+
+    } else {
+        [self.activity stopAnimating];
+    }
+    
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -252,7 +286,7 @@ static CGFloat const leftShowWidth = 187.f;
         LRTableVContentCell *cell =(LRTableVContentCell *)sender;
         
         NSIndexPath *path = [self.tableView indexPathForCell:cell];
-        LRModelStory *story = model.stories[path.row];
+        LRModelStory *story = ((LRZhiHuModel *)model[0]).stories[path.row];
         dvc.storyID = story.storyID;//传递ID
         dvc.storyChangedDelegate = self; //设置得到storyid的delegate
     }
@@ -262,14 +296,14 @@ static CGFloat const leftShowWidth = 187.f;
 - (NSString *)getStoryID:(NSString *)oldStoryID isLast:(BOOL) isLast {
     __block NSString  *newIDString = [[NSString alloc]init];
     __block NSUInteger ID;
-    [model.stories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [((LRZhiHuModel *)model[0]).stories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj storyID]==oldStoryID) {
             if (isLast) {//拿到上一个ID
                 ID = idx-1==-1 ? idx : idx-1 ;
-                newIDString = [model.stories[ID] storyID];
+                newIDString = [((LRZhiHuModel *)model[0]).stories[ID] storyID];
             } else {//拿到下一个ID
-                ID = idx==model.stories.count-1 ? idx : idx+1;
-                newIDString = [model.stories[ID] storyID];
+                ID = idx==((LRZhiHuModel *)model[0]).stories.count-1 ? idx : idx+1;
+                newIDString = [((LRZhiHuModel *)model[0]).stories[ID] storyID];
             }
         }
     }];

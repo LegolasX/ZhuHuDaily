@@ -27,5 +27,6 @@
 
 - (void)printAllModels;
 - (void)addStories:(NSArray *)newStories;
+- (NSString *)getYesterday;
 @end
 
