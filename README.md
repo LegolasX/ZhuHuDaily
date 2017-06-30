@@ -7,11 +7,11 @@
 
 * webView上下滑动动画
 
-  ![](https://ws3.sinaimg.cn/large/006tNc79ly1fh3b2v03q6g30ax0jge85.gif)
+  ![webview上下滑动](ZhiHuDaily/ZhiHuDaily/webview上下滑动.gif)
 
 * webView左右滑动动画
 
-  ![](https://ws2.sinaimg.cn/large/006tNc79ly1fh3b3db8kxg30b90k1b2g.gif)
+  ![webView左右滑动](ZhiHuDaily/ZhiHuDaily/webView左右滑动.gif)
 
   ​
 
