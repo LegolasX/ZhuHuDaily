@@ -202,40 +202,46 @@ typedef NS_ENUM(int,PanGestureDirection) {
     NSTimeInterval time;
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     typedef NS_ENUM (int,SwipeState) {
-        begin,
+        move,
         left,
         middle,
         right
     };
-    
-    SwipeState state = begin;
+    SwipeState state = move;
     if (!finished) {//如果不是final动画，那么需要移动的距离就只是movedPixel
         time = 0;
         pixelToMove = movedPixel;
     } else {//底下的几个判断，因为有冲突，优先级是依次增高的
         //首先，如果方向是左右，那么可能就是在左右滑动
         if (direction==PanGestureDirectionLeft) {
-            state = right;
+            state = left;
+            pixelToMove = screenWidth - (startX - finalX);
         }
         if (direction==PanGestureDirectionRight) {
-            state = left;
+            state = right;
+            pixelToMove = screenWidth - (finalX - startX);
         }
         //其次，如果是最终速度太慢了，可能是原地不动 因此是middle
         if (movedPixel<5&&movedPixel>-5) {
             state = middle;
+            pixelToMove = startX - finalX;
         }
         //但是如果是滑动超过了屏幕一半距离，那么可以忽视速度，直接根据起始点和终止点距离差来定方向
         if (finalX - startX > screenWidth / 2) {
-            state = left;
+            state = right;
+            pixelToMove = screenWidth - (finalX - startX);
         }
         if (startX - finalX > screenWidth / 2) {
-            state = right;
+            state = left;
+            pixelToMove = screenWidth - (startX - finalX);
         }
-        time = fabs(movedPixel/screenWidth * 0.5);//根据要移动的距离计算动画时间
+        time = fabs(pixelToMove/screenWidth * 0.5);//根据要移动的距离计算动画时间
     }
-    
+//    if (state != move) {
+//        NSLog(@"time used:%f pixel Moved:%f",time,pixelToMove);
+//    }
     switch (state) {
-        case begin:{
+        case move:{
             [UIView animateWithDuration:0 animations:^{
                 self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
             }];
@@ -245,7 +251,7 @@ typedef NS_ENUM(int,PanGestureDirection) {
                 self.storyID = [self.storyChangedDelegate getStoryID:self.storyID isLast:true];
             }
             [UIView animateWithDuration:time animations:^{
-                self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, screenWidth, 0);
+                self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, -screenWidth, 0);
             } completion:^(BOOL finished) {
                 [self loadWebView];
             }];
@@ -260,7 +266,7 @@ typedef NS_ENUM(int,PanGestureDirection) {
                 self.storyID = [self.storyChangedDelegate getStoryID:self.storyID isLast:false];
             }
             [UIView animateWithDuration:time animations:^{
-                self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, -screenWidth, 0);
+                self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, screenWidth, 0);
             } completion:^(BOOL finished) {
                 [self loadWebView];
             }];
