@@ -190,7 +190,7 @@ typedef NS_ENUM(int,PanGestureDirection) {
 
 /**
  处理所有的手势操作
-
+ 
  @param direction 移动方向
  @param startX 最初触摸点X
  @param movedPixel 上一帧和这一帧之间移动的距离
@@ -237,34 +237,37 @@ typedef NS_ENUM(int,PanGestureDirection) {
         }
         time = fabs(pixelToMove/screenWidth * 0.5);//根据要移动的距离计算动画时间
     }
-//    if (state != move) {
-//        NSLog(@"time used:%f pixel Moved:%f",time,pixelToMove);
-//    }
+    //    if (state != move) {
+    //        NSLog(@"time used:%f pixel Moved:%f",time,pixelToMove);
+    //    }
     switch (state) {
         case move:{
             if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
-                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:true complection:^(NSString *newID) {
+                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:pixelToMove>0 complection:^(NSString *newID) {
                     if (newID||pixelToMove<0)
                         [UIView animateWithDuration:0 animations:^{
                             self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
                         }];
                 }];
             }
-//            [UIView animateWithDuration:0 animations:^{
-//                self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
-//            }];
+            //            [UIView animateWithDuration:0 animations:^{
+            //                self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
+            //            }];
             break;}
         case left:{
             if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
                 [self.storyChangedDelegate testGetStoryID:self.storyID isLast:false complection:^(NSString *newID) {
-                    if (newID) self.storyID = newID;
+                    if (newID) {
+                        self.storyID = newID;
+                        [UIView animateWithDuration:time animations:^{
+                            self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, -screenWidth, 0);
+                        } completion:^(BOOL finished) {
+                            [self loadWebView];
+                        }];
+                        
+                    }
                 }];
             }
-            [UIView animateWithDuration:time animations:^{
-                self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, -screenWidth, 0);
-            } completion:^(BOOL finished) {
-                [self loadWebView];
-            }];
             break;}
         case middle:{
             [UIView animateWithDuration:time animations:^{
@@ -274,15 +277,17 @@ typedef NS_ENUM(int,PanGestureDirection) {
         case right:{
             if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
                 [self.storyChangedDelegate testGetStoryID:self.storyID isLast:true complection:^(NSString *newID) {
-                    if (newID)
+                    if (newID) {
                         self.storyID = newID;
+                        [UIView animateWithDuration:time animations:^{
+                            self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, screenWidth, 0);
+                        } completion:^(BOOL finished) {
+                            [self loadWebView];
+                        }];
+                    }
                 }];
             }
-            [UIView animateWithDuration:time animations:^{
-                self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, screenWidth, 0);
-            } completion:^(BOOL finished) {
-                [self loadWebView];
-            }];
+            
             break;}
         default:
             break;
@@ -330,7 +335,7 @@ typedef NS_ENUM(int,PanGestureDirection) {
             break;
         }
         case UIGestureRecognizerStateEnded:
-//            NSLog(@"recongnized%f", _lastX - _last2X);
+            //            NSLog(@"recongnized%f", _lastX - _last2X);
             [self swipeTo:_swipeDirection forStartX:_startPointX movedPixel:_lastX - _last2X finalPointX:newX isFinished:true];
             break;
             //
@@ -346,7 +351,7 @@ typedef NS_ENUM(int,PanGestureDirection) {
 
 //当两个手势同时要被识别时，这里可以动态的判断，gestureRecognizer要不要被另一个手势otherGestureRecognizer阻断
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-//    NSLog(@"2----this--%@ that--%@",[gestureRecognizer class],[otherGestureRecognizer class]);
+    //    NSLog(@"2----this--%@ that--%@",[gestureRecognizer class],[otherGestureRecognizer class]);
     //本来应当判断哪个手势是哪个，但是根据实际log，一般gestureRecognizer都是UIScreenEdge，就不进行判断了
     if ([otherGestureRecognizer class]==[UIPanGestureRecognizer class]) {
         return YES;

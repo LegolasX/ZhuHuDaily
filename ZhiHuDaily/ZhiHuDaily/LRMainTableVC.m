@@ -93,6 +93,7 @@ static CGFloat const leftShowWidth = 187.f;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:false];
     NSLog(@"viewWillAppear called");
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSArray *array = [user arrayForKey:@"gery"];
@@ -192,7 +193,7 @@ static CGFloat const leftShowWidth = 187.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cellForRowAtIndexPath called");
+//    NSLog(@"cellForRowAtIndexPath called");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contentCell" forIndexPath:indexPath];
     LRModelStory *story = ((LRZhiHuModel *)model[0]).stories[indexPath.row];
     cell.textLabel.text = story.title;
@@ -250,33 +251,34 @@ static CGFloat const leftShowWidth = 187.f;
 
 #pragma mark - scroll view
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%f",scrollView.contentOffset.y);
-    CGFloat offset = scrollView.contentOffset.y;
-    CGFloat actualHeight = scrollView.contentOffset.y + UIScreen.mainScreen.bounds.size.height + scrollView.contentInset.top;
-    if (scrollView.contentSize.height>20 && actualHeight > scrollView.contentSize.height + 30) {
-        [self.activity startAnimating];
-//        scrollView.contentOffset = CGPointMake(0, offset + self.activity.frame.size.height);
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-        NSMutableString *string = [[NSMutableString alloc]initWithString:@"https://news-at.zhihu.com/api/4/news/before/"];
-        NSString *newDate = [((LRZhiHuModel *)model[0]) getYesterday];
-        [string appendString:newDate];
-        ((LRZhiHuModel *)model[0]).date = newDate;
-        [manager GET:string parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-#pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
-            LRZhiHuModel *newModel = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
-            [((LRZhiHuModel *)model[0]) addStories:newModel.stories];
-            [self.tableView reloadData];
-        } failure:^(NSURLSessionTask *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-        }];
-
-    } else {
-        [self.activity stopAnimating];
-    }
-    
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//
+//
+//    CGFloat actualHeight = scrollView.contentOffset.y + UIScreen.mainScreen.bounds.size.height + scrollView.contentInset.top;
+//    if (scrollView.contentSize.height>20 && actualHeight > scrollView.contentSize.height + 30) {
+//        [self.activity startAnimating];
+//
+//        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+//        NSMutableString *string = [[NSMutableString alloc]initWithString:@"https://news-at.zhihu.com/api/4/news/before/"];
+//        NSString *newDate = [((LRZhiHuModel *)model[0]) getYesterday];
+//        [string appendString:newDate];
+//        ((LRZhiHuModel *)model[0]).date = newDate;
+//        __weak __typeof__(self) weakSelf = self;
+//        [manager GET:string parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+//#pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
+//            LRZhiHuModel *newModel = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
+//            [((LRZhiHuModel *)model[0]) addStories:newModel.stories];
+//            [weakSelf.tableView reloadData];
+//        } failure:^(NSURLSessionTask *operation, NSError *error) {
+//            NSLog(@"Error: %@", error);
+//        }];
+//
+//    } else {
+//        [self.activity stopAnimating];
+//    }
+//    
+//}
 
 #pragma mark - Navigation
 
@@ -296,34 +298,31 @@ static CGFloat const leftShowWidth = 187.f;
 
 - (void)testGetStoryID:(NSString *)oldStoryID isLast:(BOOL)isLast complection:(void (^)(NSString *newID))blockName {
     __block NSString  *newIDString = nil;
-//    __block NSUInteger ID;
+    __block NSUInteger ID;
     [((LRZhiHuModel *)model[0]).stories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj storyID]==oldStoryID) {
             if (isLast) {//拿到上一个ID
                 if (idx - 1 != -1) {
                     newIDString = [((LRZhiHuModel *)model[0]).stories[idx-1] storyID];
+                    ID = idx - 1;
                 }
-//                ID = idx-1==-1 ? idx : idx-1 ;
-                
             } else {//拿到下一个ID
-                if (idx+1 != ((LRZhiHuModel *)model[0]).stories.count-1) {
+                if (idx+1 != ((LRZhiHuModel *)model[0]).stories.count) {
                     newIDString = [((LRZhiHuModel *)model[0]).stories[idx+1] storyID];
+                    ID = idx + 1;
                 }
-//                ID = idx==((LRZhiHuModel *)model[0]).stories.count-1 ? idx : idx+1;
-//                newIDString = [((LRZhiHuModel *)model[0]).stories[ID] storyID];
             }
         }
     }];
-//    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-//    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[user arrayForKey:@"grey"]];
-//    NSNumber *number = [NSNumber numberWithInteger:ID];
-//    if (![array containsObject:number]) {
-//        [array addObject:number];
-//    }
-//    [user setObject:array forKey:@"grey"];
-//    
-//    NSIndexPath *path = [NSIndexPath indexPathForRow:ID inSection:1];
-//    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:path, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[user arrayForKey:@"grey"]];
+    NSNumber *number = [NSNumber numberWithInteger:ID];
+    if (![array containsObject:number]) {
+        [array addObject:number];
+    }
+    [user setObject:array forKey:@"grey"];
+    NSIndexPath *path = [NSIndexPath indexPathForRow:ID inSection:1];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:path, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
     blockName(newIDString);
 }
 
