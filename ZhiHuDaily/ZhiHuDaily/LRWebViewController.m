@@ -7,7 +7,7 @@
 //
 
 #import "LRWebViewController.h"
-#import "AFNetWorking.h"
+#import "AFNetworking.h"
 #import "MJExtension.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <WebKit/WebKit.h>
@@ -242,13 +242,23 @@ typedef NS_ENUM(int,PanGestureDirection) {
 //    }
     switch (state) {
         case move:{
-            [UIView animateWithDuration:0 animations:^{
-                self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
-            }];
+            if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
+                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:true complection:^(NSString *newID) {
+                    if (newID||pixelToMove<0)
+                        [UIView animateWithDuration:0 animations:^{
+                            self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
+                        }];
+                }];
+            }
+//            [UIView animateWithDuration:0 animations:^{
+//                self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
+//            }];
             break;}
         case left:{
-            if ([self.storyChangedDelegate respondsToSelector:@selector(getStoryID:isLast:)]) {
-                self.storyID = [self.storyChangedDelegate getStoryID:self.storyID isLast:true];
+            if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
+                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:false complection:^(NSString *newID) {
+                    if (newID) self.storyID = newID;
+                }];
             }
             [UIView animateWithDuration:time animations:^{
                 self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, -screenWidth, 0);
@@ -262,8 +272,11 @@ typedef NS_ENUM(int,PanGestureDirection) {
             }];
             break;}
         case right:{
-            if ([self.storyChangedDelegate respondsToSelector:@selector(getStoryID:isLast:)]) {
-                self.storyID = [self.storyChangedDelegate getStoryID:self.storyID isLast:false];
+            if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
+                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:true complection:^(NSString *newID) {
+                    if (newID)
+                        self.storyID = newID;
+                }];
             }
             [UIView animateWithDuration:time animations:^{
                 self.webView.transform = CGAffineTransformTranslate(self.originWebviewTrans, screenWidth, 0);

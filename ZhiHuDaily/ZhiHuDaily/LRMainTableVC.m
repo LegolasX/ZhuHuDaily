@@ -7,7 +7,7 @@
 //
 
 #import "LRMainTableVC.h"
-#import "AFNetWorking.h"
+#import "AFNetworking.h"
 #import "MJExtension.h"
 #import "LRZhiHuModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -293,33 +293,38 @@ static CGFloat const leftShowWidth = 187.f;
 }
 
 #pragma mark - storyChangedDelegate
-- (NSString *)getStoryID:(NSString *)oldStoryID isLast:(BOOL) isLast {
-    __block NSString  *newIDString = [[NSString alloc]init];
-    __block NSUInteger ID;
+
+- (void)testGetStoryID:(NSString *)oldStoryID isLast:(BOOL)isLast complection:(void (^)(NSString *newID))blockName {
+    __block NSString  *newIDString = nil;
+//    __block NSUInteger ID;
     [((LRZhiHuModel *)model[0]).stories enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj storyID]==oldStoryID) {
             if (isLast) {//拿到上一个ID
-                ID = idx-1==-1 ? idx : idx-1 ;
-                newIDString = [((LRZhiHuModel *)model[0]).stories[ID] storyID];
+                if (idx - 1 != -1) {
+                    newIDString = [((LRZhiHuModel *)model[0]).stories[idx-1] storyID];
+                }
+//                ID = idx-1==-1 ? idx : idx-1 ;
+                
             } else {//拿到下一个ID
-                ID = idx==((LRZhiHuModel *)model[0]).stories.count-1 ? idx : idx+1;
-                newIDString = [((LRZhiHuModel *)model[0]).stories[ID] storyID];
+                if (idx+1 != ((LRZhiHuModel *)model[0]).stories.count-1) {
+                    newIDString = [((LRZhiHuModel *)model[0]).stories[idx+1] storyID];
+                }
+//                ID = idx==((LRZhiHuModel *)model[0]).stories.count-1 ? idx : idx+1;
+//                newIDString = [((LRZhiHuModel *)model[0]).stories[ID] storyID];
             }
         }
     }];
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[user arrayForKey:@"grey"]];
-    NSNumber *number = [NSNumber numberWithInteger:ID];
-    if (![array containsObject:number]) {
-        [array addObject:number];
-    }
-    [user setObject:array forKey:@"grey"];
-    
-    NSIndexPath *path = [NSIndexPath indexPathForRow:ID inSection:1];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:path, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    
-    return newIDString;
+//    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+//    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[user arrayForKey:@"grey"]];
+//    NSNumber *number = [NSNumber numberWithInteger:ID];
+//    if (![array containsObject:number]) {
+//        [array addObject:number];
+//    }
+//    [user setObject:array forKey:@"grey"];
+//    
+//    NSIndexPath *path = [NSIndexPath indexPathForRow:ID inSection:1];
+//    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:path, nil] withRowAnimation:UITableViewRowAnimationAutomatic];
+    blockName(newIDString);
 }
 
 @end

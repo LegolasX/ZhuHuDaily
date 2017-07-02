@@ -15,4 +15,6 @@
 @protocol StoryChangedProtocol<NSObject>
 @required
 - (NSString *)getStoryID:(NSString *)oldStoryID isLast:(BOOL)isLast;
+@optional
+- (void)testGetStoryID:(NSString *)oldStoryID isLast:(BOOL)isLast complection:(void (^)(NSString *))blockName;
 @end
