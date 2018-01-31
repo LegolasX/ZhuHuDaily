@@ -24,7 +24,6 @@
     self.backgroundColor = [UIColor lightGrayColor];
     UIView *bkView = [[UIView alloc]initWithFrame:self.frame];
     bkView.backgroundColor = [UIColor whiteColor];
-    
     CALayer *layer = bkView.layer;
     layer.cornerRadius = 15;
     layer.borderWidth = 2;

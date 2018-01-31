@@ -28,6 +28,7 @@
          _model = [LRThemesModel mj_objectWithKeyValues:responseObject];
         [_tableView reloadData];
         [_model printAllModels];
+        [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error.description);
     }];

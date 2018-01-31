@@ -85,9 +85,11 @@ static CGFloat const leftShowWidth = 187.f;
         
         [model addObject:[LRZhiHuModel mj_objectWithKeyValues:responseObject]];
         [self.tableView reloadData];
+        [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+    
     
     self.activity.hidesWhenStopped = true;
 }
@@ -169,7 +171,7 @@ static CGFloat const leftShowWidth = 187.f;
     }
 }
 
-- (void) refresh:(id)paramSender {
+- (void)refresh:(id)paramSender {
     
     [_tableView reloadData];
 # pragma mark - IMPORTANT! 测试用 记得删除
@@ -251,34 +253,34 @@ static CGFloat const leftShowWidth = 187.f;
 
 #pragma mark - scroll view
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//
-//
-//    CGFloat actualHeight = scrollView.contentOffset.y + UIScreen.mainScreen.bounds.size.height + scrollView.contentInset.top;
-//    if (scrollView.contentSize.height>20 && actualHeight > scrollView.contentSize.height + 30) {
-//        [self.activity startAnimating];
-//
-//        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-//        NSMutableString *string = [[NSMutableString alloc]initWithString:@"https://news-at.zhihu.com/api/4/news/before/"];
-//        NSString *newDate = [((LRZhiHuModel *)model[0]) getYesterday];
-//        [string appendString:newDate];
-//        ((LRZhiHuModel *)model[0]).date = newDate;
-//        __weak __typeof__(self) weakSelf = self;
-//        [manager GET:string parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-//#pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
-//            LRZhiHuModel *newModel = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
-//            [((LRZhiHuModel *)model[0]) addStories:newModel.stories];
-//            [weakSelf.tableView reloadData];
-//        } failure:^(NSURLSessionTask *operation, NSError *error) {
-//            NSLog(@"Error: %@", error);
-//        }];
-//
-//    } else {
-//        [self.activity stopAnimating];
-//    }
-//    
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+
+    CGFloat actualHeight = scrollView.contentOffset.y + UIScreen.mainScreen.bounds.size.height + scrollView.contentInset.top;
+    if (scrollView.contentSize.height>20 && actualHeight > scrollView.contentSize.height + 30) {
+        [self.activity startAnimating];
+
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+        NSMutableString *string = [[NSMutableString alloc]initWithString:@"https://news-at.zhihu.com/api/4/news/before/"];
+        NSString *newDate = [((LRZhiHuModel *)model[0]) getYesterday];
+        [string appendString:newDate];
+        ((LRZhiHuModel *)model[0]).date = newDate;
+        __weak __typeof__(self) weakSelf = self;
+        [manager GET:string parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+#pragma mark important! 将下载好的JSON格式的数据转换为model的方法写在了每个model类里
+            LRZhiHuModel *newModel = [LRZhiHuModel mj_objectWithKeyValues:responseObject];
+            [((LRZhiHuModel *)model[0]) addStories:newModel.stories];
+            [weakSelf.tableView reloadData];
+        } failure:^(NSURLSessionTask *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+
+    } else {
+        [self.activity stopAnimating];
+    }
+    
+}
 
 #pragma mark - Navigation
 

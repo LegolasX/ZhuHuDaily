@@ -242,17 +242,17 @@ typedef NS_ENUM(int,PanGestureDirection) {
     //    }
     switch (state) {
         case move:{
-            if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
-                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:pixelToMove>0 complection:^(NSString *newID) {
-                    if (newID||pixelToMove<0)
+//            if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
+//                [self.storyChangedDelegate testGetStoryID:self.storyID isLast:pixelToMove>0 complection:^(NSString *newID) {
+//                    if (newID||pixelToMove<0)
+//                        [UIView animateWithDuration:0 animations:^{
+//                            self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
+//                        }];
+//                }];
+//            }
                         [UIView animateWithDuration:0 animations:^{
                             self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
                         }];
-                }];
-            }
-            //            [UIView animateWithDuration:0 animations:^{
-            //                self.webView.transform = CGAffineTransformTranslate(self.webView.transform, pixelToMove, 0);
-            //            }];
             break;}
         case left:{
             if ([self.storyChangedDelegate respondsToSelector:@selector(testGetStoryID:isLast:complection:)]) {
